@@ -145,6 +145,8 @@ const resolvers = {
 
     length: (node: ClimbGQLQueryType) => node.length ?? -1,
 
+    boltsCount: (node: ClimbGQLQueryType) => node.boltsCount ?? -1,
+
     grades: (node: ClimbGQLQueryType) => node.grades ?? null,
 
     metadata: (node: ClimbGQLQueryType) => ({
