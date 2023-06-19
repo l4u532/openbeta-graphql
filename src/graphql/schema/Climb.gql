@@ -149,12 +149,7 @@ type GradeType {
   """
   font: String
   """
-<<<<<<< HEAD
-  UIAA grading system, typically used in Central Europe (e.g. Germany, Austria, Switzerland).
-  This database uses Roman numerals with +/- signs, e.g. "7-", "7", "7+" (using Arabic numerals, like "VII-", is not supported).
-=======
   UIAA grading system, typically used in Central Europe (e.g. Germany, Austria, Switzerland). Uses Roman numerals with +/- signs, e.g. "VII", "VII-" (easier), or "VII+" (harder).
->>>>>>> e709c6b... add UIAA gradetype and new datafield bolts
   Used for sport climbing and alpine climbing.
   https://en.wikipedia.org/wiki/Grade_(climbing)#UIAA
   """
