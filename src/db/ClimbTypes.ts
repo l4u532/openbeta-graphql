@@ -37,8 +37,8 @@ export interface IPitch {
   _id: MUUID
   parentId: MUUID
   pitchNumber: number
-  grades?: Partial<Record<GradeScalesTypes, string>>
-  type?: DisciplineType
+  grades?: Partial<Record<GradeScalesTypes, string>> | null
+  disciplines?: DisciplineType
   length?: number
   boltsCount?: number
   description?: string
@@ -62,6 +62,7 @@ export interface IClimbProps {
    * with the [sandbag library](https://github.com/OpenBeta/sandbag)
    */
   grades?: Partial<Record<GradeScalesTypes, string>>
+
   /**
    * Even with the grade I18n solutions we propose, we assign a grade context to a given
    * climb. This context can be used in the consideration of a grade's true value.
@@ -169,8 +170,8 @@ export interface PitchChangeInputType {
   id?: string
   parentId?: string
   pitchNumber?: number
-  grades?: Partial<Record<GradeScalesTypes, string>>
-  type?: DisciplineType
+  disciplines?: DisciplineType
+  grade?: string
   length?: number
   boltsCount?: number
   description?: string
@@ -180,7 +181,7 @@ export interface ClimbChangeInputType {
   id?: string
   name?: string
   disciplines?: DisciplineType
-  grade?: string // actual grade value (e.g. "7a", "5+")
+  grade?: string // single, atomic grade value (e.g. "7a", "5+")
   leftRightIndex?: number
   description?: string
   location?: string

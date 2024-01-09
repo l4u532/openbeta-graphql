@@ -122,16 +122,16 @@ describe('Climb CRUD', () => {
     pitches: [
       {
         pitchNumber: 1,
-        grades: { uiaa: '7' },
-        type: { sport: true },
+        grade: '5+',
+        disciplines: { sport: true },
         length: 30,
         boltsCount: 5,
         description: 'First pitch description'
       },
       {
         pitchNumber: 2,
-        grades: { uiaa: '6+' },
-        type: { sport: true },
+        grade: '7',
+        disciplines: { sport: true },
         length: 40,
         boltsCount: 6,
         description: 'Second pitch description'
@@ -650,10 +650,9 @@ describe('Climb CRUD', () => {
     // Define updated pitch info
     const updatedPitch1 = {
       id: originalPitch1ID,
-      parentId: originalPitch1ParentID,
       pitchNumber: 1,
-      grades: { ewbank: '19' },
-      type: { sport: false, alpine: true },
+      grade: '6+',
+      disciplines: { sport: false, alpine: true },
       length: 20,
       boltsCount: 6,
       description: 'Updated first pitch description'
@@ -661,10 +660,9 @@ describe('Climb CRUD', () => {
 
     const updatedPitch2 = {
       id: originalPitch2ID,
-      parentId: originalPitch2ParentID,
       pitchNumber: 2,
-      grades: { ewbank: '18' },
-      type: { sport: false, alpine: true },
+      grade: '8-',
+      disciplines: { sport: false, alpine: true },
       length: 25,
       boltsCount: 5,
       description: 'Updated second pitch description'
@@ -695,15 +693,15 @@ describe('Climb CRUD', () => {
           expect(pitch._id.toUUID().toString()).toEqual(originalID)
           expect(pitch.parentId.toUUID().toString()).toEqual(originalParentID)
           expect(pitch.pitchNumber).toEqual(expectedPitch.pitchNumber)
-          expect(pitch.grades).toEqual(expectedPitch.grades)
+          expect(pitch.grades).toEqual({ uiaa: expectedPitch.grades })
           expect(pitch.type).toEqual(expectedPitch.type)
           expect(pitch.length).toEqual(expectedPitch.length)
           expect(pitch.boltsCount).toEqual(expectedPitch.boltsCount)
           expect(pitch.description).toEqual(expectedPitch.description)
         }
 
-        assertPitch(updatedClimb.pitches[0], updatedPitch1, originalPitch1ID, originalPitch1ParentID)
-        assertPitch(updatedClimb.pitches[1], updatedPitch2, originalPitch2ID, originalPitch2ParentID)
+        assertPitch(updatedClimb.pitches[0], { ...updatedPitch1, grades: '6+' }, originalPitch1ID, originalPitch1ParentID)
+        assertPitch(updatedClimb.pitches[1], { ...updatedPitch2, grades: '8-' }, originalPitch2ID, originalPitch2ParentID)
       }
 
       // Check that the createdBy and updatedBy fields are not undefined before accessing their properties

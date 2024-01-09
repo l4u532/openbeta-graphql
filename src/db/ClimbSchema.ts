@@ -81,7 +81,7 @@ const PitchSchema = new mongoose.Schema({
     required: true
   },
   pitchNumber: { type: Number, required: true },
-  grades: { type: GradeTypeSchema },
+  grades: GradeTypeSchema,
   type: { type: mongoose.Schema.Types.Mixed },
   length: { type: Number },
   boltsCount: { type: Number },

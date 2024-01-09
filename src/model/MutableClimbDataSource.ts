@@ -133,15 +133,29 @@ export default class MutableClimbDataSource extends ClimbDataSource {
           if (partialPitch.pitchNumber === undefined) {
             throw new UserInputError('Each pitch in a multi-pitch climb must have a pitchNumber representing its sequence in the climb. Please ensure that every pitch is numbered.')
           }
+
+          // Create newGradeObj for each pitch
+          const typeSafeDisciplines = sanitizeDisciplines(partialPitch.disciplines)
+          const grade = partialPitch.grade
+          const newGradeObj = grade != null && typeSafeDisciplines != null // only update grades when both grade str and disciplines obj exist
+            ? createGradeObject(grade, typeSafeDisciplines, cragGradeScales)
+            : null
+
           return {
             _id: muid.from(id ?? muid.v4()), // populate _id
             // feed rest of pitch data
             ...partialPitch,
             parentId: muid.from(partialPitch.parentId ?? newClimbIds[i]),
-            pitchNumber: partialPitch.pitchNumber
+            pitchNumber: partialPitch.pitchNumber,
+            grades: newGradeObj // add newGradeObj to each pitch
           }
         })
         : null
+
+      const pitchNumbers = (newPitchesWithIDs != null) ? newPitchesWithIDs.map(pitch => pitch.pitchNumber).filter(Number.isSafeInteger) : []
+      if (new Set(pitchNumbers).size !== pitchNumbers.length) {
+        throw new UserInputError('Each pitch in a multi-pitch climb must have a unique pitchNumber. Please ensure that every pitch is uniquely numbered.')
+      }
 
       const { description, location, protection, name, fa, length, boltsCount } = userInput[i]
 

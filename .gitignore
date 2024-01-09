@@ -113,5 +113,8 @@ tmp
 *.iml
 .vscode/settings.json
 
+# db dumps
 /export/
 /openbeta-export/
+db-dumps/
+openbeta-stg-db.tar.gz
